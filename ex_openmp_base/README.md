@@ -25,6 +25,8 @@ Then uncomment the call to the `omp_matmul` subroutine.
 This example shows how to use the `WORKSHARE` construct, how to use nested parallelism
 and write highly inefficient OMP code.
 
+The next example is in `ex_mpi_helloworld`.
+
 Optional Exercise
 -----------------
 

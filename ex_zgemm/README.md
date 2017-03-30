@@ -31,6 +31,8 @@ on MacOsX to list the dynamic libraries.
 
 Run the code and use the `plot.py` script to visualize the results.
 
+The next example is in `ex_fortran`
+
 Linking against MKL
 -------------------
 

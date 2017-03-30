@@ -3,7 +3,7 @@ We then re-read the data in a python script.
 
 First of all install the netcdf software stack with
 
-    conda install netcdf-fortran
+    $ conda install netcdf-fortran
 
 This command will install the C-layer (hdf5, netcdf-C) and the Fortran bindings.
 
@@ -18,15 +18,15 @@ so we cannot perform parallel IO with this configuration.
 
 Compile the code and execute it with:
 
-    make && ./a.out
+    $ make && ./a.out
 
 Use:
 
-    ncdump -h data.nc
+    $ ncdump -h data.nc
 
 to show header information only and 
 
-    ncdump data.nc | less
+    $ ncdump data.nc | less
 
 to get the full output.
 

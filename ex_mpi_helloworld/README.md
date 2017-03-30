@@ -13,7 +13,7 @@ Use
     $ ls ${CONDA_PREFIX}/lib/libmpi*
 
 to list the MPI libraries. 
-Do you have the `mpi.mod` Fortran module?
+Do you have the `mpi.mod` Fortran module in lib?
 
 At this point, the `mpicc` and `mpif90` wrapper should be in your path:
 
@@ -32,7 +32,7 @@ with different MPI implementations.
 Compile the code with `make`. Note the following options:
 
     FC=mpif90
-    FCFLAGS=-g -O2 -I../ -J../ -L.. -lcore -ffree-form --free-line-length-none -L${CONDA_PREFIX} -lmpi
+    LIBS=-L${CONDA_PREFIX} -lmpi
 
 Run your first MPI code with 1 core with:
 
@@ -55,3 +55,5 @@ The code will abort with the following error message:
     This error is expected when nprocs > 1. Please fix the code
 
 Can you explain why?
+
+The next example is in `ex_mpi_io`.

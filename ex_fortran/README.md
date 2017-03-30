@@ -9,3 +9,5 @@ The code in `zgemm_with_real_arrays` shows how to use the `iso_c_binding` module
 a real pointer to a complex array and pass it to `ZGEMM` when we have an explicit interface.
 This trick allows us to by-pass the type-checking performed by the Fortran compiler and 
 avoid extra-copies in sections of code in which performance is critical.
+
+The next example is in `ex_openmp_base`

@@ -20,11 +20,11 @@ on MacOSx to list the dynamic libraries used by our executable and the correspon
 In principle, we should install our binaries in the conda environment but since we are 
 working in developmental mode we have to set our `LD_LIBRARY_PATH` with
 
-    $ export DYLD_LIBRARY_PATH=$CONDA_PREFIX/lib
+    $ export LD_LIBRARY_PATH=$CONDA_PREFIX/lib
 
 on Unix or with:
 
-    $ export LD_LIBRARY_PATH=$CONDA_PREFIX/lib
+    $ export DYLD_LIBRARY_PATH=$CONDA_PREFIX/lib
 
 on MacOsx.
 Note that this usage of `LD_LIBRARY_PATH` is highly non-standard and should be
@@ -43,7 +43,9 @@ Change the `Makefile` to compile the code with `-O2` and rerun the program.
 You should see that now `slow` and `fast` have similar `cpu_time`. Why?
 
 Note that in this oversimplified example, we have two simple do loops that can be 
-exchanged without modifying the final result.
+exchanged without modifying the final results.
 In other more complicated cases, the compiler won't be able to "fix" your code so 
 try to design your data-structures so that the most CPU-critical sections always
 access contiguous portions.
+
+The next example is in `ex_zgemm`

@@ -20,8 +20,8 @@ Include file providing CPP macros
 Low-level modules with constants and helper functions used in the other examples.
 
 Each example is contained in a separated directory.
-Each directory contains a main.F90 source code, a Makefile to compile it, 
-a README.md file and, optionally, a python script to analyze the results.
+Each directory contains a `main.F90` source code, a `Makefile` to compile it, 
+a `README.md` file and, optionally, a python script to analyze the results.
 
 To compile the examples, we will use the `gcc` compiler and other external libraries 
 provided by conda. Follow the instructions reported in the next section to install `conda` on your machine.
@@ -66,6 +66,14 @@ Install the gcc compiler:
 
 Use the command:
 
-    $ which `gcc`
+    $ which gcc
 
-to show the location of the gcc compiler.
+to show the location of the `gcc` compiler.
+
+Now we are ready to start but before proceeding with the examples we have to run:
+
+    $ make
+
+in the top-level directory to compile a tiny library (`libcore.a`) we are gonna use 
+in the different examples.
+After this step, we are ready for the the first example in the `ex_doloops` directory.

@@ -19,3 +19,5 @@ two markers (usually 4-byte integers) with the size of the record.
 Once the sequential version works, change the implementation to MPI-distribute the A matrix 
 along the second dimension.
 Then use collective MPI-IO calls so that each MPI process reads its own portion from file.
+
+The next example is in `ex_netcdf`.
