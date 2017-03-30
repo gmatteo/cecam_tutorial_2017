@@ -67,7 +67,7 @@ subroutine calc_pi(nn)
 
     real(dp) ::  pi, h, res, x, f, a
     real(dp) :: cputime,walltime,gflops
-    real(dp),parameter :: PI25DT = 3.141592653589793238462643_dp
+    real(dp),parameter :: ref_pi = 3.141592653589793238462643_dp
 
     ! Calculate the interval size
     h = one / nn
@@ -81,7 +81,7 @@ subroutine calc_pi(nn)
     end do
 
     pi = h * res
-    write(stdout, "(a,i0,2(a,f18.16))")"With n: ",nn," Pi is approximately: ", pi," Error is: ", abs(pi - PI25DT)
+    write(stdout, "(a,i0,2(a,f18.16))")"With n: ",nn," Pi is approximately: ", pi," Error is: ", abs(pi - ref_pi)
     call cwtime(cputime, walltime, gflops, "stop")
     ! cputime is multipled by the number of threads
     write(stdout, "(a,i0,2(a,f8.2))")"With REDUCTION: n: ", nn," cpu-time: ",cputime,", wall-time: ",walltime
@@ -98,7 +98,7 @@ subroutine calc_pi(nn)
     end do
 
     pi = h * res
-    write(stdout, "(a,i0,2(a,f18.16))")"With n: ",nn," Pi is approximately: ", pi," Error is: ", abs(pi - PI25DT)
+    write(stdout, "(a,i0,2(a,f18.16))")"With n: ",nn," Pi is approximately: ", pi," Error is: ", abs(pi - ref_pi)
     call cwtime(cputime, walltime, gflops, "stop")
     write(stdout, "(a,i0,2(a,f8.2))")"With CRITICAL: n: ", nn," cpu-time: ",cputime,", wall-time: ",walltime
 

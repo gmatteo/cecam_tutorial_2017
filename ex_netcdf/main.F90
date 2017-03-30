@@ -3,37 +3,28 @@
 program netcdf_io
 
     use m_core
-    use mpi
     use netcdf
 
     implicit none
 
-    integer :: ierr, my_rank, nprocs, ii, irnk, comm
-    integer,parameter :: master=0
-    integer,parameter :: ntot = 10**5
-    integer :: my_n, size_of_irk
-    real(dp),allocatable :: my_vector(:)
-    integer,allocatable :: start_rank(:),stop_rank(:)
-    integer :: ncid, ntot_dimid, var_id, ncerr
+    integer :: ix,ncid, nx_dimid, xvals_id, yvals_id, ncerr
+    integer,parameter :: nx = 100
+    real(dp) :: step
+    real(dp),parameter :: pi = 3.141592653589793238462643_dp
+    real(dp),allocatable :: xvals(:),yvals(:)
 
-    ! Splits ntot tasks among nprocs processors.
-    ! Save distribution in start_rank, stop_rank arrays.
-    allocate(start_rank(0:nprocs-1), stop_rank(0:nprocs-1))
-    call distrib_tasks(ntot, nprocs, start_rank, stop_rank)
-    my_n = stop_rank(my_rank) - start_rank(my_rank) + 1
-    allocate(my_vector(my_n))  ! or allocate(my_vector(start_rank(my_rank): stop_rank(my_rank)))
+    allocate(xvals(nx))
+    allocate(yvals(nx))
 
-    ! Compute my_vector
-    do ii=1,my_n
-      my_vector(ii) = start_rank(my_rank) + ii - 1
+    ! Compute function on closed mesh.
+    step = two * pi / (nx - 1)
+    do ix=1,nx
+      xvals(ix) = (ix - 1) * step
     end do
-
-    ! ==================
-    ! Write data to file
-    ! ==================
+    yvals = sin(xvals)
 
     ! Open netcdf file in write mode and get `ncid` identifier.
-    ! overwrite pre-existent files.
+    ! overwrite any existing datase
     ncerr = nf90_create("data.nc", ior(nf90_clobber, nf90_write), ncid)
 
     ! One should always test the return code.
@@ -44,22 +35,21 @@ program netcdf_io
     NCF_CHECK(nf90_put_att(ncid, NF90_GLOBAL, "code", "my wonderful code"))
 
     ! Define dimension.
-    NCF_CHECK(nf90_def_dim(ncid, "ntot", ntot, ntot_dimid))
+    NCF_CHECK(nf90_def_dim(ncid, "nx", nx, nx_dimid))
 
-    ! vector[ntot] array of double numbers.
-    NCF_CHECK(nf90_def_var(ncid, "vector", nf90_double, ntot_dimid, var_id))
+    ! yvals[nx] array of double numbers.
+    NCF_CHECK(nf90_def_var(ncid, "yvals", nf90_double, nx_dimid, yvals_id))
+    NCF_CHECK(nf90_def_var(ncid, "xvals", nf90_double, nx_dimid, xvals_id))
+
     NCF_CHECK(nf90_enddef(ncid))
 
     ! Write data.
-    NCF_CHECK(nf90_put_var(ncid, var_id, my_vector))
+    NCF_CHECK(nf90_put_var(ncid, xvals_id, xvals))
+    NCF_CHECK(nf90_put_var(ncid, yvals_id, yvals))
 
     ! Close file.
     NCF_CHECK(nf90_close(ncid))
 
-    deallocate(my_vector)
-    deallocate(start_rank, stop_rank)
-
-    ! Finalize MPI
-    !call MPI_FINALIZE(ierr)
+    deallocate(xvals, yvals)
 
 end program netcdf_io

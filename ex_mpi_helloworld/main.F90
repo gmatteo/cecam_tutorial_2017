@@ -17,7 +17,7 @@ program hello_mpi
     integer :: mpistatus(MPI_STATUS_SIZE)
     real(dp) ::  mypi, pi, pi_from_file, h, partial_sum, x, f, a
 
-    real(dp),parameter :: PI25DT = 3.141592653589793238462643_dp
+    real(dp),parameter :: ref_pi = 3.141592653589793238462643_dp
 
     ! Initialize MPI
     call MPI_INIT(ierr)
@@ -75,7 +75,7 @@ program hello_mpi
 
     ! Master node prints the answer and write result to file
     if (my_rank == master) then
-       write(stdout, "(a,i0,2(a,f18.16))")"With n: ",nn," Pi is approximately: ", pi," Error is: ", abs(pi - PI25DT)
+       write(stdout, "(a,i0,2(a,f18.16))")"With n: ",nn," Pi is approximately: ", pi," Error is: ", abs(pi - ref_pi)
        open(newunit=unt, file="pi.dat", form="formatted", action="write", status="unknown", iomsg=msg, iostat=ierr)
        CHECK_IERR_MSG(ierr, msg)
        write(unt, *) pi
