@@ -20,17 +20,19 @@ on MacOSx to list the dynamic libraries used by our executable and the correspon
 In principle, we should install our binaries in the conda environment but since we are 
 working in developmental mode we have to set our `LD_LIBRARY_PATH` with
 
-$ export DYLD_LIBRARY_PATH=$CONDA_PREFIX/lib
+    $ export DYLD_LIBRARY_PATH=$CONDA_PREFIX/lib
 
-if Unix or with:
+on Unix or with:
 
-$ export LD_LIBRARY_PATH=$CONDA_PREFIX/lib
+    $ export LD_LIBRARY_PATH=$CONDA_PREFIX/lib
 
-on Mac.
+on MacOsx.
 Note that this usage of `LD_LIBRARY_PATH` is highly non-standard and should be
 avoided when you are using a conda environment for production.
 
-At this point, we can run the code and plot the results with `plot.py` (you will need `matplotlib` and `numpy`).
+At this point, we can run the code and plot the results with the `plot.py` script
+(you will need `matplotlib` and `numpy`).
+
 Install the python packages with: 
 
     $ conda install numpy matplotlib 

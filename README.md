@@ -13,15 +13,15 @@ Organization of the package:
 
 `common.h`:
 
-    Include file providing CPP macros 
+Include file providing CPP macros 
 
 `m_core.F90`:
 
-    Low-level modules with constants and helper functions used in the other examples.
+Low-level modules with constants and helper functions used in the other examples.
 
 Each example is contained in a separated directory.
-Each directory contains a main program, a Makefile to compile the code, a README.md file 
-and, optionally, a python script to analyze the results.
+Each directory contains a main.F90 source code, a Makefile to compile it, 
+a README.md file and, optionally, a python script to analyze the results.
 
 To compile the examples, we will use the `gcc` compiler and other external libraries 
 provided by conda. Follow the instructions reported in the next section to install `conda` on your machine.
